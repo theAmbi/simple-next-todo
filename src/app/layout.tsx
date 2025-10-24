@@ -1,5 +1,5 @@
 import "./globals.css";
-import { supabase } from "../../lib/supabaseClient";
+// import { supabase } from "../../lib/supabaseClient";
 import type { Metadata } from "next";
 import { SupabaseProvider } from "../../lib/supabaseProvider";
 import { GeistSans } from 'geist/font/sans';
