@@ -135,7 +135,7 @@ export default function TodoDetailPage() {
                             Delete Task
                         </button>
                         <button
-                            onClick={() => router.push("/")}
+                            onClick={() => router.push("/todos")}
                             className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
                         >
                             Back
