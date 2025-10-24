@@ -3,10 +3,10 @@
 
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
-import type { Database } from "@/types/supabase"; // optional typing
+// import type { Database } from "@/types/supabase"; // optional typing
 
 export default function TodoClient() {
-    const supabase = createClient<Database>(
+    const supabase = createClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     );
