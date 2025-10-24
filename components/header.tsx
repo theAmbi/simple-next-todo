@@ -5,13 +5,16 @@ import { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
 import { ChevronDown } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { supabase } from '../lib/supabaseClient'
+// import { supabase } from '../lib/supabaseClient'
+import { useSupabase } from '../lib/supabaseProvider'
 
 export default function Header() {
     const router = useRouter()
     const [user, setUser] = useState<any>(null)
     const [open, setOpen] = useState(false)
     const menuRef = useRef<HTMLDivElement>(null)
+    const { supabase } = useSupabase()
+
 
     useEffect(() => {
         const fetchUser = async () => {
