@@ -11,7 +11,7 @@ export default function AuthPage() {
     const [error, setError] = useState(null);
     const [isSignUp, setIsSignUp] = useState(false);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         setLoading(true);
         setError(null);
