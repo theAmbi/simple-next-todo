@@ -142,64 +142,57 @@
 
 'use client'
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useSupabase } from '../../../lib/supabaseProvider';
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useSupabase } from '../../../lib/supabaseProvider'
 
 export default function AuthPage() {
-    const router = useRouter();
-    const supabase = useSupabase(); // supabase client from the provider
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-    const [isSignUp, setIsSignUp] = useState(false);
+    const router = useRouter()
+    const { supabase } = useSupabase()
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState<string | null>(null)
+    const [isSignUp, setIsSignUp] = useState(false)
 
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setLoading(true);
-        setError(null);
-
-        if (!supabase) {
-            setError('Supabase client not ready.');
-            setLoading(false);
-            return;
-        }
+        e.preventDefault()
+        setLoading(true)
+        setError(null)
 
         if (isSignUp) {
-            const { error } = await supabase.auth.signUp({ email, password });
-            if (error) setError(error.message);
-            else alert('Signup successful! Check your email for confirmation.');
+            const { error } = await supabase.auth.signUp({ email, password })
+            if (error) setError(error.message)
+            else alert('Signup successful! Check your email for confirmation.')
         } else {
-            const { error } = await supabase.auth.signInWithPassword({ email, password });
-            if (error) setError(error.message);
-            else router.replace('/todos');
+            const { error } = await supabase.auth.signInWithPassword({ email, password })
+            if (error) setError(error.message)
+            else router.replace('/todos')
         }
 
-        setLoading(false);
-    };
+        setLoading(false)
+    }
 
     const handleGoogleSignIn = async () => {
-        if (!supabase) return;
-
-        setLoading(true);
+        setLoading(true)
         const { error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
-            options: { redirectTo: `${window.location.origin}/todos` },
-        });
-        if (error) setError(error.message);
-        setLoading(false);
-    };
+            options: {
+                redirectTo: `${window.location.origin}/todos`,
+            },
+        })
+        if (error) {
+            setError(error.message)
+            setLoading(false)
+        }
+    }
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-6">
-            {/* Logo */}
             <h1 className="text-4xl tracking-tighter font-bold text-gray-900 mb-3">
                 todo<span className="text-blue-600">.</span>
             </h1>
 
-            {/* Welcome text */}
             <div className="text-center mb-10">
                 <h2 className="text-2xl font-semibold text-gray-800">
                     {isSignUp ? 'Create your account' : 'Welcome back 👋'}
@@ -211,7 +204,6 @@ export default function AuthPage() {
                 </p>
             </div>
 
-            {/* Auth form */}
             <form
                 onSubmit={handleSubmit}
                 className="w-full max-w-sm bg-white p-8 rounded-2xl shadow-sm space-y-5"
@@ -281,5 +273,5 @@ export default function AuthPage() {
                 </p>
             </form>
         </div>
-    );
+    )
 }
