@@ -1,3 +1,26 @@
+'use client';
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSupabase } from '../../lib/supabaseProvider';
+
+export default function HomePage() {
+  const { session } = useSupabase();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session === null) {
+      router.replace('/auth');
+    } else if (session) {
+      router.replace('/todos');
+    }
+  }, [session, router]);
+
+  return null; // or a small loader
+}
+
+
+
 // import { redirect } from "next/navigation";
 // import { createServerSupabaseClient } from "../../lib/supabaseServer";
 
@@ -14,23 +37,23 @@
 //   }
 // }
 
-'use client';
+// 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useSupabase } from '../../lib/supabaseProvider';
+// import { useEffect } from 'react';
+// import { useRouter } from 'next/navigation';
+// import { useSupabase } from '../../lib/supabaseProvider';
 
-export default function HomePage() {
-  const router = useRouter();
-  const { session } = useSupabase();
+// export default function HomePage() {
+//   const router = useRouter();
+//   const { session } = useSupabase();
 
-  useEffect(() => {
-    if (session === null) {
-      router.push('/auth');
-    } else if (session) {
-      router.push('/todos');
-    }
-  }, [session, router]);
+//   useEffect(() => {
+//     if (session === null) {
+//       router.push('/auth');
+//     } else if (session) {
+//       router.push('/todos');
+//     }
+//   }, [session, router]);
 
-  return null; // or a loading spinner
-}
+//   return null; // or a loading spinner
+// }
